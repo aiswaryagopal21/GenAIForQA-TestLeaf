@@ -1,0 +1,31 @@
+Feature: Search Bus Tickets
+
+  Scenario Outline: Search for bus tickets with valid source, destination, and date
+    Given I open the bus ticket booking page
+    When I select "<source>" as the source city
+    And I select "<destination>" as the destination city
+    And I select "<date>" as the journey date
+    And I toggle the "Booking for women" option to "<women_booking>"
+    And I click the "Search buses" button
+    Then I should see the search results for the given criteria
+
+    Examples:
+      | source       | destination   | date       | women_booking |
+      | "Chennai"   | "Bangalore"   | "Tomorrow"  | "On"          |
+      | "Hyderabad" | "Chennai"     | "Today"    | "Off"         |
+      | "Bangalore" | "Hyderabad"   | "Tomorrow"  | "On"          |
+
+  Scenario Outline: Search for bus tickets with invalid criteria
+    Given I open the bus ticket booking page
+    When I select "<source>" as the source city
+    And I select "<destination>" as the destination city
+    And I select "<date>" as the journey date
+    And I toggle the "Booking for women" option to "<women_booking>"
+    And I click the "Search buses" button
+    Then I should see an error message for invalid search criteria
+
+    Examples:
+      | source       | destination   | date       | women_booking |
+      | ""           | "Bangalore"   | "Tomorrow"  | "On"          |
+      | "Chennai"   | ""            | "Today"    | "Off"         |
+      | "Hyderabad" | "Chennai"     | "Yesterday"| "On"          |
