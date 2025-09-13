@@ -1,0 +1,43 @@
+Feature: Login to Salesforce
+
+  Scenario Outline: Successful login with valid credentials
+    Given I open the login page
+    When I type "<username>" into the Username field
+    And I type "<password>" into the Password field
+    And I click the Remember me checkbox
+    And I click the Login button
+    Then I should be logged in successfully
+
+  Examples:
+    | username                        | password   |
+    | "raman.srinivasan@salesforce.com" | "chennai123" |
+    | "kumar.ganesh@salesforce.com"    | "bangalore456" |
+    | "priya.shankar@salesforce.com"   | "hyderabad789" |
+
+  Scenario Outline: Unsuccessful login with invalid credentials
+    Given I open the login page
+    When I type "<username>" into the Username field
+    And I type "<password>" into the Password field
+    And I click the Login button
+    Then I should see an error message "<message>"
+
+  Examples:
+    | username                        | password   | message                                  |
+    | ""                               | "testpass" | "Please enter a username"                 |
+    | "testuser"                       | ""         | "Please enter a password"                 |
+    | "invalid.user@salesforce.com"     | "wrongpass" | "Invalid username or password"            |
+    | "kumar.ganesh@salesforce.com"    | "wrongpass" | "Invalid username or password"            |
+    | "priya.shankar@salesforce.com"   | "wrongpass" | "Invalid username or password"            |
+
+  Scenario Outline: Unsuccessful login with special characters
+    Given I open the login page
+    When I type "<username>" into the Username field
+    And I type "<password>" into the Password field
+    And I click the Login button
+    Then I should see an error message "<message>"
+
+  Examples:
+    | username                        | password       | message                                  |
+    | "test@user.com"                  | "test@pass123" | "Invalid username or password"            |
+    | "kumar.ganesh@salesforce.com"    | "bangalore@123" | "Invalid username or password"            |
+    | "priya.shankar@salesforce.com"   | "hyderabad@789" | "Invalid username or password"            |
