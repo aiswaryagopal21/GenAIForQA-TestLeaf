@@ -1,0 +1,52 @@
+{
+  "model": "deepseek-r1-distill-llama-70b",
+  "temperature": 0.2,
+  "max_tokens": 800,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an AI assistant to convert Selenium Java automation code into Playwright TypeScript for modern web testing."
+    },
+    {
+      "role": "user",
+      "content": "Prompt: Convert Selenium Java Code to Playwright TypeScript\n\nContext:\nYou are an AI assistant to convert Selenium Java automation code into Playwright TypeScript for modern web testing.\n\nGiven the following Selenium Java code snippet:\n\n\"package week2.day1;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebElement;\nimport org.openqa.selenium.chrome.ChromeDriver;\nimport org.openqa.selenium.support.ui.Select;\n\nimport io.github.bonigarcia.wdm.WebDriverManager;\n\npublic class LearnDropdown {\n\t\n\tpublic static void main(String[] args) {\n\t\t\n\t\tWebDriverManager.chromedriver().setup();\n\t\tChromeDriver driver = new ChromeDriver();\n\t\tdriver.get(\"http://leafground.com/pages/Dropdown.html\");\n\t\tdriver.manage().window().maximize();\n\t\tWebElement eleProgram = driver.findElement(By.id(\"dropdown1\"));\n\t\tSelect dd = new Select(eleProgram);\n\t\tdd.selectByVisibleText(\"Selenium\");\n\t\t// dd.selectByValue(\"2\");\n\t\t// dd.selectByIndex(2);\n\t}\n}\"\n\nWe want ONLY a Playwright TypeScript PAGE OBJECT CLASS for that code.\n\nInstructions:\n- Use TypeScript with Playwright’s latest stable version\n- Use Playwright Test runner (@playwright/test)\n- Import required Playwright modules\n- Add JSDoc comments for class and methods\n- [MANDATORY] Every method should have proper comments above method signature\n- Do not send any explanation or additional text\n- Use selectOption({ label: '...' }) for dropdowns\n- [CRITICAL] Use the best locator strategy: getByRole, getByLabel, getByPlaceholder, getByTestId, and finally locator(selector)"
+    }
+  ]
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Response
+
+{
+    "id": "chatcmpl-8daf899f-ad67-4508-b956-586b42f7653b",
+    "object": "chat.completion",
+    "created": 1757783359,
+    "model": "deepseek-r1-distill-llama-70b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "<think>\nOkay, I need to convert the given Selenium Java code into a Playwright TypeScript page object class. Let me start by understanding what the original code does.\n\nThe Java code sets up a ChromeDriver, navigates to a dropdown page, and selects an option from a dropdown. It uses the Select class to handle the dropdown, selecting by visible text.\n\nFirst, I'll create a TypeScript class called LearnDropdownPage. I'll need to import the necessary Playwright modules, like Page from 'playwright' and expect from '@playwright/test' for the test runner.\n\nNext, I'll set up the constructor to take a page object. This will allow me to interact with the page using Playwright's methods.\n\nThe navigateToDropdownPage method will navigate to the specified URL. I'll use the page.goto() method for that.\n\nFor the dropdown, I'll locate it using the best locator strategy. The original code uses By.id(\"dropdown1\"), so I'll check if there's a label or role that's more accessible. Since the dropdown has a label, I can use getByLabel, but if not, I'll use a CSS selector as a fallback.\n\nI'll create a method called selectOptionFromDropdown to handle the selection. Instead of using the Select class, Playwright allows me to use page.selectOption with a label. So I'll use { label: 'Selenium' } to select the option.\n\nI'll add JSDoc comments for the class and each method to explain their purpose. Each method will have a proper comment above its signature as per the instructions.\n\nI won't include any explanation or extra text, just the code. I'll make sure to use the latest Playwright modules and the test runner setup.\n\nFinally, I'll structure the class with the methods, ensuring that each part of the original Java code is translated effectively into TypeScript using Playwright's API.\n</think>\n\n```typescript\nimport { Page } from 'playwright';\nimport { expect } from '@playwright/test';\n\n/**\n * Page Object class for handling dropdown interactions\n */\nexport class LearnDropdownPage {\n  private page: Page;\n\n  /**\n   * Initializes the page object with the given Playwright page\n   * @param page - Playwright page instance\n   */\n  constructor(page: Page) {\n    this.page = page;\n  }\n\n  /**\n   * Navigate to the dropdown page\n   */\n  async navigateToDropdownPage(): Promise<void> {\n    await this.page.goto('http://leafground.com/pages/Dropdown.html');\n    await this.page.waitForLoadState('networkidle');\n  }\n\n  /**\n   * Selects an option from the dropdown by visible text\n   * @param label - Visible text of the dropdown option to select\n   */\n  async selectOptionFromDropdown(label: string): Promise<void> {\n    const dropdown = this.page.getByLabel('Select your programs:', { exact: true });\n    await dropdown.selectOption({ label });\n  }\n}\n```"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.045928328,
+        "prompt_tokens": 350,
+        "prompt_time": 0.040988141,
+        "completion_tokens": 602,
+        "completion_time": 2.428067713,
+        "total_tokens": 952,
+        "total_time": 2.469055854
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_1bbe7845ec",
+    "x_groq": {
+        "id": "req_01k520txjhfq7b9r5b1jqytr2r"
+    },
+    "service_tier": "on_demand"
+}
+
