@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "eb7673c6-92fd-4346-8afb-5ed3f058ae21",
+		"name": "Langchain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4356174"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document_QA_v1 (Single File Path)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Tell me about ajith\",\n    \"documentPath\": \"/Users/babu/Desktop/Resume - Ajith Kumar.pdf\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/document",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"document"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document_QA_v2 (attachment)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "question",
+							"value": "Explain about Ajith",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/Users/babu/Desktop/desktop/Vector Database - Pre-read copy.pdf",
+								"/Users/babu/Desktop/Resume - Ajith Kumar.pdf"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/documents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_Resumes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : \"Get me the selenium profiles\",\n    \"searchType\" : \"keyword\",\n    \"topK\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/resumes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"resumes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_Resumes (Name)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : \"Get the resumes those who start with names 'a'\",\n    \"searchType\" : \"hybrid\",\n    \"topK\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/resumes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"resumes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_Resumes (Experience)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : \"Get the resumes those who are above 7 years\",\n    \"searchType\" : \"hybrid\",\n    \"topK\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/resumes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"resumes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_Resumes (Experience and Location)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : \"Get the resumes those who are above 7 years and working at Bengaluru\",\n    \"searchType\" : \"hybrid\",\n    \"topK\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/search/resumes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"search",
+						"resumes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_With_Chat_Basic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\": \"Find the top testing resumes\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RAG_With_Chat_Chaining",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\": \"Out of these, Show me only female candidates\",\n    \"conversationId\": \"conv_1762578062377_cfqh5qtlb\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chat_History",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"conversationId\": \"conv_1762578062377_cfqh5qtlb\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8787/chat/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"chat",
+						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Chat_History",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8787/chat/conv_1762578062377_cfqh5qtlb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"chat",
+						"conv_1762578062377_cfqh5qtlb"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
